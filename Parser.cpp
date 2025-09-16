@@ -24,7 +24,19 @@ std::queue<std::string> Parser::infixToPostfix(const std::vector<std::string>& t
 			throw std::runtime_error("Ошибка: Пустое выражение");
 	}
 
-	for (std::size_t i = 0; i < tokens.size(); i++)
+	std::size_t i = 0;
+	if (tokens[1] == "=")
+	{
+		if (tokens.size() < 3 || !std::isalpha(tokens[0][0]) || tokens[0].size() != 1)
+		{
+			throw std::runtime_error("Ошибка: Неверный формат присваивания");
+		}
+		operators.push('=');
+		operators.push(tokens[0][0]);	
+		i = 2;
+	} 
+
+	for (; i < tokens.size(); i++)
 	{
 		std::string token = tokens[i];
 		if (std::isdigit(token[0]))

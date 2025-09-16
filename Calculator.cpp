@@ -4,13 +4,12 @@
 #include <cctype>
 #include <cmath>
 
-
-
 Calculator::Calculator() {}
 
-double Calculator::evaluate(std::queue<std::string> postfix) const
+double Calculator::evaluate(std::queue<std::string> postfix)
 {
 	std::stack<double> values;
+	char variable = '\0';
 
 	while (!postfix.empty())
 	{
@@ -20,6 +19,11 @@ double Calculator::evaluate(std::queue<std::string> postfix) const
 		if (isNumber(token))
 		{
 			values.push(std::stod(token));
+		}
+		else if (token.length() == 1 && std::isalpha(token[0]) && postfix.front() == "=")
+		{
+			postfix.pop();
+			variable = token[0];
 		}
 		else if (token.length() == 1)
 		{
@@ -53,7 +57,22 @@ double Calculator::evaluate(std::queue<std::string> postfix) const
 			}
 		}
 	}
+
+	if (variable != '\0')
+	{
+		variables[variable] = values.top();
+	}
+
 	return values.top();
+}
+
+#include <iostream>
+void Calculator::printVariables() const
+{
+	for (const auto& var : variables)
+	{
+		std::cout << var.first << " = " << var.second << std::endl;
+	}
 }
 
 bool Calculator::isNumber(const std::string& str) const

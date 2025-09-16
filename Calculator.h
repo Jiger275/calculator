@@ -3,14 +3,18 @@
 
 #include <string>
 #include <queue>
+#include <map>
 
 class Calculator 
 {
 private:
 	bool isNumber(const std::string& str) const;
+	std::map<char, int> variables;
+	
 public: 
 	Calculator();
-	double evaluate(std::queue<std::string> postfix) const;
+	double evaluate(std::queue<std::string> postfix);
+	void printVariables() const;
 };
 
 #endif // __CALCULATOR_H__

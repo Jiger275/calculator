@@ -30,6 +30,8 @@ int main(int argc, const char** argv)
 
 			double result = calculator.evaluate(postfix);
 			std::cout << "Результат: " << result << std::endl;
+
+			calculator.printVariables();
 	} 
 	catch (const std::exception& ex) 
 	{
