@@ -19,6 +19,7 @@ int main(int argc, const char** argv)
 			auto tokens = lexer.tokenize(expression);
 			auto postfix = parser.infixToPostfix(tokens);
 
+
 			std::cout << "Постфиксное выражение: ";
 			std::queue<std::string> temp = postfix;
 			while (!temp.empty()) {
